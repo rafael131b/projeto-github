@@ -71,5 +71,4 @@ npm run build
 ```
 
 ## Demo
-
-Link da demo hospedada: adicionar quando a publicacao estiver concluida.
+https://projeto-github-flax.vercel.app/
