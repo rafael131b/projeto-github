@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useLocation, useParams } from 'react-router-dom'
 import FeedbackMessage from '../components/FeedbackMessage'
+import LoadingSpinner from '../components/LoadingSpinner'
 import RepositoryDetailsCard from '../components/RepositoryDetailsCard'
 import { getRepositoryDetails } from '../services/githubService'
 
@@ -25,52 +26,32 @@ function RepositoryDetailsPage() {
           decodeURIComponent(repositoryName),
         )
 
-        if (!isActive) {
-          return
-        }
+        if (!isActive) return
 
         setRepository(repositoryData)
       } catch (requestError) {
-        if (!isActive) {
-          return
-        }
+        if (!isActive) return
 
         if (axios.isAxiosError(requestError) && requestError.response?.status === 404) {
-          setError('Repositorio nao encontrado para esse usuario.')
+          setError('Repositório não encontrado para esse usuário.')
         } else {
-          setError('Nao foi possivel carregar os detalhes do repositorio.')
+          setError('Não foi possível carregar os detalhes do repositório.')
         }
 
         setRepository(null)
       } finally {
-        if (isActive) {
-          setLoading(false)
-        }
+        if (isActive) setLoading(false)
       }
     }
 
     loadRepository()
 
-    return () => {
-      isActive = false
-    }
+    return () => { isActive = false }
   }, [repositoryName, username])
 
-  if (loading) {
-    return <FeedbackMessage>Carregando detalhes do repositorio...</FeedbackMessage>
-  }
-
-  if (error) {
-    return <FeedbackMessage variant="error">{error}</FeedbackMessage>
-  }
-
-  if (!repository) {
-    return (
-      <FeedbackMessage>
-        Nenhum detalhe foi encontrado para esse repositorio.
-      </FeedbackMessage>
-    )
-  }
+  if (loading) return <LoadingSpinner message="Carregando detalhes do repositório..." />
+  if (error)   return <FeedbackMessage variant="error">{error}</FeedbackMessage>
+  if (!repository) return <FeedbackMessage>Nenhum detalhe encontrado para esse repositório.</FeedbackMessage>
 
   return (
     <RepositoryDetailsCard

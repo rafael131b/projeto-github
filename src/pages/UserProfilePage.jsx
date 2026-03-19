@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, useSearchParams } from 'react-router-dom'
 import FeedbackMessage from '../components/FeedbackMessage'
+import LoadingSpinner from '../components/LoadingSpinner'
 import RepositoryList from '../components/RepositoryList'
 import UserProfileCard from '../components/UserProfileCard'
 import { getUserProfile, getUserRepositories } from '../services/githubService'
@@ -30,37 +31,29 @@ function UserProfilePage() {
           getUserRepositories(username),
         ])
 
-        if (!isActive) {
-          return
-        }
+        if (!isActive) return
 
         setUser(profile)
         setRepositories(repos)
       } catch (requestError) {
-        if (!isActive) {
-          return
-        }
+        if (!isActive) return
 
         if (axios.isAxiosError(requestError) && requestError.response?.status === 404) {
-          setError('Usuario nao encontrado. Verifique o login e tente novamente.')
+          setError('Usuário não encontrado. Verifique o login e tente novamente.')
         } else {
-          setError('Nao foi possivel carregar os dados do GitHub no momento.')
+          setError('Não foi possível carregar os dados do GitHub no momento.')
         }
 
         setUser(null)
         setRepositories([])
       } finally {
-        if (isActive) {
-          setLoading(false)
-        }
+        if (isActive) setLoading(false)
       }
     }
 
     loadUserData()
 
-    return () => {
-      isActive = false
-    }
+    return () => { isActive = false }
   }, [username])
 
   function handleSortChange(nextSort) {
@@ -75,21 +68,9 @@ function UserProfilePage() {
     setSearchParams(nextParams, { replace: true })
   }
 
-  if (loading) {
-    return <FeedbackMessage>Buscando dados do usuario...</FeedbackMessage>
-  }
-
-  if (error) {
-    return <FeedbackMessage variant="error">{error}</FeedbackMessage>
-  }
-
-  if (!user) {
-    return (
-      <FeedbackMessage>
-        Nenhum dado foi carregado para esse usuario.
-      </FeedbackMessage>
-    )
-  }
+  if (loading) return <LoadingSpinner message="Buscando dados do usuário..." />
+  if (error)   return <FeedbackMessage variant="error">{error}</FeedbackMessage>
+  if (!user)   return <FeedbackMessage>Nenhum dado foi carregado para esse usuário.</FeedbackMessage>
 
   const sortedRepositories = sortRepositories(repositories, sortBy)
 

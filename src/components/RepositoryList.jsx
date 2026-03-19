@@ -1,25 +1,21 @@
 import FeedbackMessage from './FeedbackMessage'
 import RepositoryCard from './RepositoryCard'
 
-function RepositoryList({
-  repositories,
-  sortBy,
-  sortOptions,
-  onSortChange,
-}) {
+function RepositoryList({ repositories, sortBy, sortOptions, onSortChange }) {
   return (
     <article className="repos-card">
       <div className="repos-header">
-        <div>
-          <h2>Repositorios</h2>
+        <div className="repos-header-left">
+          <h2>Repositórios</h2>
           <p>{repositories.length} resultado(s) carregado(s)</p>
         </div>
 
-        <label className="sort-box" htmlFor="sort-repos">
-          Ordenar por
+        <div className="sort-select-wrapper">
           <select
             id="sort-repos"
+            className="sort-select"
             value={sortBy}
+            aria-label="Ordenar repositórios por"
             onChange={(event) => onSortChange(event.target.value)}
           >
             {sortOptions.map((option) => (
@@ -28,13 +24,13 @@ function RepositoryList({
               </option>
             ))}
           </select>
-        </label>
+        </div>
       </div>
 
       <div className="repo-list">
         {repositories.length === 0 ? (
           <FeedbackMessage>
-            Esse usuario nao possui repositorios publicos.
+            Esse usuário não possui repositórios públicos.
           </FeedbackMessage>
         ) : (
           repositories.map((repository) => (
