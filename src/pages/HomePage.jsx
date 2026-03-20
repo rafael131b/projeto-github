@@ -14,7 +14,10 @@ function HomePage() {
       <div className="home-empty-icon">
         <SearchIllustration />
       </div>
-      <h2>Busque um usuário do GitHub</h2>
+      <h2>
+        Busque um usuário do GitHub
+        <span className="blink-cursor" aria-hidden="true" />
+      </h2>
       <p>
         Digite um nome de usuário no campo acima para carregar o perfil,
         estatísticas e repositórios públicos.

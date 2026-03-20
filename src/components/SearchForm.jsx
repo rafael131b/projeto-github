@@ -45,7 +45,7 @@ function SearchForm({ initialValue = '' }) {
             id="github-username"
             className="search-input"
             type="text"
-            placeholder="Ex.: torvalds"
+            placeholder="> digite um username..."
             value={username}
             onChange={(event) => setUsername(event.target.value)}
             autoComplete="off"

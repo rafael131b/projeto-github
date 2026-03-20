@@ -13,11 +13,11 @@ function NotFoundPage() {
     <section className="repo-detail-card not-found">
       <div>
         <p className="not-found-code">404</p>
-        <p className="detail-kicker">Página não encontrada</p>
-        <h2 style={{ color: 'var(--text-primary)', marginTop: 8, marginBottom: 8, letterSpacing: '-0.02em' }}>
+        <p className="detail-kicker">Erro de rota</p>
+        <h2 style={{ color: 'var(--text-primary)', marginTop: 8, marginBottom: 8, fontFamily: 'var(--font-mono)', letterSpacing: '-0.03em' }}>
           Essa rota não existe
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem' }}>
           Volte para a busca principal e tente novamente.
         </p>
       </div>

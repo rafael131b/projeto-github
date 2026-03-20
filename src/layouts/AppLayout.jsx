@@ -19,7 +19,7 @@ function AppLayout() {
           </div>
           <div>
             <p className="app-title">GitHub Finder</p>
-            <p className="app-subtitle">Explore perfis e repositórios</p>
+            <p className="app-subtitle">// explore perfis e repos</p>
           </div>
         </header>
 
